@@ -1,4 +1,4 @@
- //move this to data.js after testing
+//move this to data.js after testing
 var robot_arrow_size = 4;
 var robot_tile_size = 80;
 var robot_node_size = 5;
@@ -15,6 +15,7 @@ var robot_tiles_filtered = robot_link_centers = [];
 
 
 function drawCanvasRobot(){
+  createRobotNodes();
   ctx_robot_frontend.clearRect(0, 0, 1200, 800);
   ctx_robot_backend.clearRect(0, 0, 1200, 800);
   robot_nodes_filtered = getValuesWithMapId(robot_nodes, currentMapId);
@@ -306,6 +307,10 @@ function makeTileIds(){
 function createRobotNodes(){
   makeTileIds();
   robot_nodes = [];
+
+  cleanRobotNodesInTop();
+
+
   $.each(robot_tiles, function(key,values){
 
     var positions;
@@ -350,7 +355,11 @@ function createRobotNodes(){
     }
 
     if(values.tiletype == "end"){
-      addTopNode(values.tileId, values.mapId);
+      $.each(robot_nodes, function(k,v){
+        if(v.tileId == values.tileId){
+          addTopNode(v.id, values.mapId);
+        }
+      })
     }
   })
 }
@@ -365,7 +374,6 @@ var tile_up
 var tile_bottom
 
 function drawTiles(){
-  //createStructure()
   $.each(robot_tiles_filtered, function(key, values) {
     drawTile(values);
   });

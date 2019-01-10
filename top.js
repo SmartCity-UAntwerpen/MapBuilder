@@ -201,3 +201,25 @@ function drawTopLink(link){
     ctx_top.strokeText(link.weight,centerx-3,centery-5)
   }
 }
+
+
+function cleanRobotNodesInTop(){
+  var robot_map_ids = [];
+  $.each(maps, function(key,values){
+    if(values.type == "ROBOT"){
+      robot_map_ids.push(values.id);
+    }
+  })
+
+  var toDeleteTopNodes = []
+  $.each(robot_map_ids, function(key,values){
+    $.each(top_nodes, function(k,v){
+      if(values == v.mapId){
+        toDeleteTopNodes.push(v.id);
+      }
+    })
+  })
+  $.each(toDeleteTopNodes,function(key,values){
+    deleteIdFromData(values, top_nodes)
+  })
+}

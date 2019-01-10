@@ -12,7 +12,7 @@ var drone_tablename_link = "link";
 var robot_databasename = "robotDB_new";
 var robot_tablename_tile = "tiles";
 var robot_tablename_point = "points";
-var robot_tablename_link_lock = "link_lock";
+var robot_tablename_link_lock = "link_locks";
 var robot_tablename_link = "links";
 
 
@@ -25,7 +25,7 @@ function displaySQL(){
 
 function getSQL_top(){
 
-  var sql = "USE DATABASE " + top_databasename + ";";
+  var sql = "USE  " + top_databasename + ";";
 
   //Point table
   sql += "\nDROP TABLE " + top_tablename_point + ";";
@@ -63,7 +63,7 @@ function getSQL_car(){
 
 function getSQL_drone(){
 
-  var sql = "USE DATABASE " + drone_databasename + ";";
+  var sql = "USE " + drone_databasename + ";";
 
   sql += "\nDROP TABLE " + drone_tablename_point + ";";
   sql += "\nCREATE TABLE " + drone_tablename_point +"(pointid int, x int, y int, z int);";
@@ -82,7 +82,7 @@ function getSQL_drone(){
 
 function getSQL_robot(){
 
-  var sql = "USE DATABASE " + robot_databasename + ";";
+  var sql = "USE " + robot_databasename + ";";
 
 
   //tiles
@@ -95,7 +95,7 @@ function getSQL_robot(){
 
   $.each(tiles, function(key,values){
     sql += "INSERT INTO " + robot_databasename + "." + robot_tablename_tile + "(id, rfid, is_locked, tiles.type) VALUES(" +
-            (values.tileId+1) + ",\"" + values.rfid + "\"," + 0 + ",\"" + values.tiletype + "\");\n"
+            values.tileId + ",\"" + values.rfid + "\"," + 0 + ",\"" + values.tiletype + "\");\n"
   })
 
   //nodes - only nodes who have links
@@ -108,7 +108,7 @@ function getSQL_robot(){
   $.each(robot_nodes, function(key,values){
     if(used_nodes.includes(values.id)){
       sql += "INSERT INTO " + robot_databasename + "." + robot_tablename_point + "(id, tile_id) VALUES(" +
-            (values.id+1) + "," + (values.tileId+1) + ");\n"
+            values.id + "," + values.tileId + ");\n"
     }
   })
 
@@ -144,7 +144,7 @@ function getSQL_robot(){
     //get key of combination
     sql2 += "INSERT INTO " + robot_databasename + "." + robot_tablename_link +
             "(id, start, end, weight, angle, link_lock_id, length) VALUES(" +
-              (values.id+1) + "," + values.start + "," + values.stop + "," +
+              values.id + "," + values.start + "," + values.stop + "," +
               values.weight + "," + values.angle + "," + link_lock_id  + ","+ values.length +");\n"
 
   })

@@ -36,7 +36,7 @@ function main(){
   loadMap();              //default show & draw first map
 }
 function refresh(){ //Use this function everytime you change data
-  createRobotNodes();
+  //createRobotNodes();
   drawCanvas();
   displayData();
   displaySQL();
