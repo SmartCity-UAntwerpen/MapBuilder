@@ -1,0 +1,48 @@
+body{
+  padding-top: 10px;
+  user-select: none;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+}
+
+
+.highlight{
+  background-color: lightblue;
+}
+
+.header{
+  background-color: lightgray;
+  margin-bottom: 15px;
+}
+
+textarea{
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+#mapselect{
+  margin-bottom: 5px;
+}
+
+.mapselectbutton{
+  margin: 2px;
+}
+
+button:active, .active {
+    background-color: lightblue;
+}
+
+canvas{
+  border:  1px solid black
+}
+
+#sql button, #data button{
+  margin-left: 20px;
+}
+
+.instructions{
+  margin-top: 5px;
+}

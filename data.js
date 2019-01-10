@@ -1,0 +1,11 @@
+var maps = [{"id":0,"type":"TOP"},{"id":1,"type":"CAR","offSetX":100,"offSetY":0},{"id":2,"type":"DRONE","offSetX":25,"offSetY":25},{"id":3,"type":"ROBOT","offSetX":0,"offSetY":0}]
+
+var top_nodes = []
+var top_links = []
+var car_nodes = []
+var car_links = []
+var drone_nodes = []
+var drone_links = []
+var robot_nodes = []
+var robot_links =[]
+var robot_tiles = []

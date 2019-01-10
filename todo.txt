@@ -1,0 +1,13 @@
+FEATURE:
+Robot: Canvastype selector - click to select type
+All: Dynamic centering of id texts
+
+BUG:
+Robot: deleteRobotNodes function
+Car: nodes are in odd position -> hard to click
+Top: Deleting and adding top nodes, arent quiet 100% working
+top nodes from robot reset position, they get created depending on tiles.
+
+OTHER:
+Write documentation + future works
+Reread code

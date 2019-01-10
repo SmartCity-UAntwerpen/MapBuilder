@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Jquery & bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Jquery UI -->
+    <script type="text/javascript" src="lib/jquery-ui.js"></script>
+    <link rel="stylesheet" href="lib/jquery-ui.css"></script>
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+
+
+    <!-- Nodes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/1.8.34/go.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="sql.js"></script>
+
+
+    <script type="text/javascript" src="event.js"></script>
+    <script type="text/javascript" src="top.js"></script>
+    <script type="text/javascript" src="car.js"></script>
+    <script type="text/javascript" src="drone.js"></script>
+    <script type="text/javascript" src="robot.js"></script>
+
+
+    <!-- Datafiles -->
+    <script type="text/javascript" src="data2.js"></script>
+
+  </head>
+  <body>
+
+    <div class="col-md-12 unselect header">
+      <div class="center ">
+        <div class="col-md-4" id="mapHeader" onclick="mapHeaderClick()"><p>Map</p></div>
+        <div class="col-md-4" id="dataHeader" onclick="dataHeaderClick()"><p>Data</p></div>
+        <div class="col-md-2" id="sqlHeader" onclick="sqlHeaderClick()"><p>SQL</p></div>
+      </div>
+    </div>
+
+    <div class="col-md-12" id="map" oncontextmenu="return false;">
+
+      <div class="center" id="mapselect"></div>
+
+      <div class="center">
+
+        <div id="top">
+          <canvas id="topCanvas"></canvas>
+          <div id="topInstructions"class="instructions">
+            <ul>
+              <li>Drag from a node to another node, to add a link between these nodes.</li>
+              <li>Drag a node to another location, to move this node.</li>
+              <li>Left click the circle on a link, to edit this link.</li>
+              <li>Right click the circle on a link, to delete this link.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="car">
+          <canvas id="carCanvas"></canvas>
+          <div id="carOffsets">
+            offSetX <input id="carOffSetX" type="number" value="0"/>
+            offSetY <input id="carOffSetY" type="number" value="0"/>
+            <button onclick="saveOffsetsCar()">Save offsets</button>
+          </div>
+          <div id="carInstructions" class="instructions">
+            <ul>
+              <li>Double click an empty space to add a node.</li>
+              <li>Double click a node, to delete this node.</li>
+              <li>Right click a node, to edit this node.</li>
+            </ul>
+          </div>
+          <div hidden id="carDialog" title="Change car node">
+            <p>Id: <b id="carId">0</b></p>
+            X: <input type="text" id="carInputX"/></br>
+            Y: <input type="text" id="carInputY"/></br>
+            Z: <input type="text" id="carInputZ"/></br>
+            W: <input type="text" id="carInputW"/></br>
+            MapName: <input type="text" id="carInputMapName"/></br>
+            Transit: <input type="checkbox" id="carInputIsTransit"/></br>
+          </div>
+        </div>
+
+        <div id="drone">
+          <canvas id="droneCanvas"></canvas>
+          <div id="droneOffsets">
+            offSetX <input id="droneOffSetX" type="number" value="0"/>
+            offSetY <input id="droneOffSetY" type="number" value="0"/>
+            <button onclick="saveOffsetsDrone()">Save offsets</button>
+          </div>
+          <div id="droneInstructions"class="instructions">
+            <ul>
+              <li>Double click an empty space to add a node.</li>
+              <li>Double click a node, to delete this node.</li>
+              <li>Right click the circle of a link, to delete this link.</li>
+              <li>Drag from a node to another node, to add a link between these nodes.</li>
+              <li>Drag a node to another location, to move this node.</li>
+              <li>Right click a node, to edit this node.</li>
+            </ul>
+          </div>
+          <div hidden id="droneDialog" title="Change Drone Node">
+            <p>Id: <b id="droneId"></b></p>
+            X: <input type="text" id="droneInputX"/></br>
+            Y: <input type="text" id="droneInputY"/></br>
+            Z: <input type="text" id="droneInputZ"/></br>
+            Transit: <input type="checkbox" id="droneInputIsTransit"/></br>
+          </div>
+        </div>
+
+        <div hidden id="robot">
+          <canvas id="robotFrontendCanvas"></canvas>
+          <canvas id="robotBackendCanvas"></canvas>
+          <div id="robotOffsets">
+            offSetX <input id="robotOffSetX" type="number" value="0"/>
+            offSetY <input id="robotOffSetY" type="number" value="0"/>
+            <button onclick="saveOffsetsRobot()">Save offsets</button>
+          </div>
+          <div id="robotInstructions"class="instructions">
+            <ul>
+              <li>FRONT: Left click an empty space to add a tile.</li>
+              <li>FRONT: Left click a tile, to edit this tile.</li>
+              <li>FRONT: Right click a tile to delete this tile.</li>
+              <li>BACK: Drag from a node to another node, to add a link between these nodes.</li>
+              <li>BACK: Left click the circle of a link, to edit this link.</li>
+              <li>BACK: Right click the circle of a link, to delete this link.</li>
+            </ul>
+          </div>
+          <div hidden id="robotTileDialog" title="Change Tile">
+            <p>Id: <b id="robotTileId">0</b></p>
+            Type: <input type="text" id="robotTileInputCanvasType"/></br>
+            RFID: <input type="text" id="robotTileInputRfid"/></br>
+            <img src="img/robot_canvastypes.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div hidden class="col-md-12" id="data">
+      <div class="center">
+        <b><i>data.js</i></b><button onclick="copyDataJs()">copy</button></br>
+        <textarea id="datajs" rows="10" cols="100"></textarea></br>
+        <b><i>JSON</i></b><button onclick="copyJson()">copy</button></br>
+        <textarea id="json" rows="10" cols="100"></textarea></br>
+      </div>
+    </div>
+
+    <div hidden class="col-md-12" id="sql">
+      <div class="center">
+        <b><i>SQL-TopMap</i></b><button onclick="copyTopSql()">copy</button></br>
+        <textarea id="topSql" rows="10" cols="100"></textarea></br>
+        <b><i>SQL-CarMap</i></b><button onclick="copyCarSql()">copy</button></br>
+        <textarea id="carSql" rows="10" cols="100"></textarea></br>
+        <b><i>SQL-DroneMap</i></b><button onclick="copyDroneSql()">copy</button></br>
+        <textarea id="droneSql" rows="10" cols="100"></textarea></br>
+        <b><i>SQL-RobotMap</i></b><button onclick="copyRobotSql()">copy</button></br>
+        <textarea id="robotSql" rows="10" cols="100"></textarea></br>
+      </div>
+    </div>
+  </body>
+</html>
