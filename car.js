@@ -1,6 +1,6 @@
 /* Variables */
 var car_map_offset = 5; //to avoid negative x,y
-var car_map_scale = 10;
+var car_map_scale = 20;
 var car_node_size = 20;
 var car_show_links = true;
 
@@ -61,14 +61,11 @@ function updateCarNode(id,x,y,z,w,mapname,isTransit){
       values.x = (x * car_map_scale) + car_map_offset;
       values.y = (y * car_map_scale) + car_map_offset;
 
-      values.car_x = parseFloat(x);
-      values.car_y = parseFloat(y);
-      values.car_z = parseFloat(z);
-      values.car_w = parseFloat(w);
+      values.car_x = x;
+      values.car_y = y;
+      values.car_z = z;
+      values.car_w = w;
       values.mapname = mapname;
-
-      console.log("prev loc", values.x, values.y)
-      console.log("After loc", values.x, values.y)
 
       if(values.isTransit != isTransit){
         if(isTransit){
@@ -101,7 +98,6 @@ function createCanvasEventsCar(){
   $('#carCanvas').on('mousedown', function(e){
     var pos = getMousePos(carCanvas, e);
     var node_id = findElement(car_nodes_filtered, car_node_size, pos.x,pos.y);
-    console.log(pos)
     if(e.which == 3 & node_id != -1){
       launchCarDialog(node_id);
     }

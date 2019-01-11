@@ -28,8 +28,8 @@ function saveOffsetsRobot(){
 function saveOffsets(type){
   $.each(maps, function(key, values){
     if(values.id == currentMapId){
-      values.offSetX = $("#"+type+"OffSetX").val();
-      values.offSetY = $("#"+type+"OffSetY").val();
+      values.offSetX = toIntOrZero($("#"+type+"OffSetX").val());
+      values.offSetY = toIntOrZero($("#"+type+"OffSetY").val());
     }
   })
   refresh();

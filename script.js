@@ -203,13 +203,37 @@ function converDataToJson(){
         var id = values[0]
         var type = "";
         var x = y = 0;
-        $.each(robot_tiles,function(k,v){
-          if(id == v.tileId){
-            type = v.tiletype
-            x = Math.floor(v.x);
-            y = Math.floor(v.y);
-          }
-        })
+
+        if(work_with_tileId){
+          $.each(robot_tiles,function(k,v){
+            if(id == v.tileId){
+              type = v.tiletype
+              x = Math.floor(v.x);
+              console.log(v.x)
+              y = Math.floor(v.y);
+            }
+          })
+        }
+        else{
+          $.each(robot_nodes,function(k,v){
+            //console.log(id, v)
+            if(id == v.id){
+              console.log(v, robot_tiles)
+              $.each(robot_tiles, function(k1,v1){
+                //console.log(robot_tiles, robot_nodes)
+                console.log(v.tileId, v1.id)
+                if(v1.id == v.tileId){
+                  type = v1.tiletype
+                }
+              })
+              console.log(robot_nodes)
+              x = Math.floor(v.x);
+              y = Math.floor(v.y);
+              console.log(v.id,type,x,y)
+            }
+          })
+        }
+
         if(type == "end"){type = "ENDPOINT"};
         if(type == "crossing"){type = "INTERSECTION"};
         if(type == "tlight"){type = "LIGHT"}

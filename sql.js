@@ -66,7 +66,7 @@ function getSQL_drone(){
   var sql = "USE " + drone_databasename + ";";
 
   sql += "\nDROP TABLE " + drone_tablename_point + ";";
-  sql += "\nCREATE TABLE " + drone_tablename_point +"(pointid int, x float, y float, z float);";
+  sql += "\nCREATE TABLE " + drone_tablename_point +"(pointID int, x float, y float, z float);";
   $.each(drone_nodes, function(key,values){
     sql += "\nINSERT INTO " + drone_tablename_point + " VALUES(" + values.id + "," + values.drone_x + "," + values.drone_y + "," + values.drone_z + ");"
   });

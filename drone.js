@@ -1,7 +1,7 @@
 /* Variables */
 var drone_node_size = 20;
 var drone_link_center_size = 4;
-var drone_map_scale = 10;
+var drone_map_scale = 20;
 var drone_show_links = false;
 
 var ctx_drone;
@@ -56,9 +56,9 @@ function editDroneNode(id,x,y,z,isTransit){
 
       values.x = x*drone_map_scale;
       values.y = y*drone_map_scale;
-      values.drone_x = parseFloat(x);
-      values.drone_y = parseFloat(y);
-      values.drone_z = parseFloat(z);
+      values.drone_x = x;
+      values.drone_y = y;
+      values.drone_z = z;
 
       if(values.isTransit != isTransit){
         if(isTransit){
