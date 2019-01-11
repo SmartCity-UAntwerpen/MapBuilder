@@ -1,6 +1,6 @@
 /* Variables */
 var car_map_offset = 5; //to avoid negative x,y
-var car_map_scale = 20;
+var car_map_scale = 10;
 var car_node_size = 20;
 var car_show_links = true;
 
@@ -15,8 +15,8 @@ function addCarNode(x,y){
   var node = {"id":id,
               "x":x,
               "y":y,
-              "car_x":(x-car_map_offset)/car_map_scale,
-              "car_y":(y-car_map_offset)/car_map_scale,
+              "car_x":Number((x-car_map_offset)/car_map_scale).toFixed(2),
+              "car_y":Number((y-car_map_offset)/car_map_scale).toFixed(2),
               "car_z":0,
               "car_w":0,
               "isTransit":false,
@@ -54,13 +54,21 @@ function deleteCarNode(id){
 function updateCarNode(id,x,y,z,w,mapname,isTransit){
   $.each(car_nodes_filtered, function(key,values){
     if(values.id == id){
-      values.x = Number((parseFloat(x) * car_map_scale) + car_map_offset).toFixed(2);
-      values.y = Number((parseFloat(y) * car_map_scale) + car_map_offset).toFixed(2);
+
+      x = Number(x).toFixed(2)
+      y = Number(y).toFixed(2)
+
+      values.x = (x * car_map_scale) + car_map_offset;
+      values.y = (y * car_map_scale) + car_map_offset;
+
       values.car_x = parseFloat(x);
       values.car_y = parseFloat(y);
       values.car_z = parseFloat(z);
       values.car_w = parseFloat(w);
       values.mapname = mapname;
+
+      console.log("prev loc", values.x, values.y)
+      console.log("After loc", values.x, values.y)
 
       if(values.isTransit != isTransit){
         if(isTransit){
@@ -93,6 +101,7 @@ function createCanvasEventsCar(){
   $('#carCanvas').on('mousedown', function(e){
     var pos = getMousePos(carCanvas, e);
     var node_id = findElement(car_nodes_filtered, car_node_size, pos.x,pos.y);
+    console.log(pos)
     if(e.which == 3 & node_id != -1){
       launchCarDialog(node_id);
     }

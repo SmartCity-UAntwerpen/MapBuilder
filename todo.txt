@@ -3,7 +3,6 @@ Robot: Canvastype selector - click to select type
 All: Dynamic centering of id texts
 
 BUG:
-Car: nodes are in odd position -> hard to click
 top nodes from robot reset position, they get created depending on tiles.
 
 OTHER:

@@ -1,5 +1,8 @@
+/* Variables */
 var drone_node_size = 20;
-var drone_link_center_size = 4
+var drone_link_center_size = 4;
+var drone_map_scale = 10;
+var drone_show_links = false;
 
 var ctx_drone;
 var drone_nodes_filtered = [] //id, x,y,z ,isTransit, mapId
@@ -12,12 +15,19 @@ function addDroneNode(x,y){
   var node = {"id":id,
               "x":x,
               "y":y,
-              "drone_x":0,
-              "drone_y":0,
+              "drone_x":Number(x/drone_map_scale).toFixed(2),
+              "drone_y":Number(y/drone_map_scale).toFixed(2),
               "drone_z":0,
               "isTransit":false,
               "mapId":currentMapId};
   drone_nodes.push(node);
+  $.each(drone_nodes_filtered, function(key, values){
+    var link = {"id":getNewId(drone_links),
+                "start":id,
+                "stop":values.id,
+                "mapId":currentMapId}
+    drone_links.push(link);
+  })
   refresh();
 }
 
@@ -38,7 +48,14 @@ function deleteDroneNode(id){
 
 function editDroneNode(id,x,y,z,isTransit){
   $.each(drone_nodes_filtered, function(key,values){
+
     if(values.id == id){
+
+      x = Number(x).toFixed(2)
+      y = Number(y).toFixed(2)
+
+      values.x = x*drone_map_scale;
+      values.y = y*drone_map_scale;
       values.drone_x = parseFloat(x);
       values.drone_y = parseFloat(y);
       values.drone_z = parseFloat(z);
@@ -61,7 +78,8 @@ function moveDroneNode(id,x,y){
   var node = getItemWithId(id, drone_nodes);
   node.x = x;
   node.y = y;
-  editIdFromData(id, drone_nodes, node);
+  node.drone_x = Number(x/drone_map_scale).toFixed(2);
+  node.drone_y = Number(y/drone_map_scale).toFixed(2);
   refresh();
 }
 
@@ -109,14 +127,6 @@ function createCanvasEventsDrone(){
         x1 = pos.x;
         y1 = pos.y;
         node_id = findElement(drone_nodes, drone_node_size, x1, y1)
-        link_id = findElement(drone_link_centers, drone_link_center_size*3, x1, y1)
-
-        if(link_id != -1){
-          if (e.which == 3) { //right click
-            deleteDroneLink(link_id);
-          }
-        }
-
       }
   });
 
@@ -131,10 +141,7 @@ function createCanvasEventsDrone(){
       if(node_id != -1){
         if(e.which == 1){//left click
           var end_node_id = findElement(drone_nodes_filtered, drone_node_size, x2, y2);
-          if(end_node_id != -1 & end_node_id != node_id){
-            addDroneLink(node_id, end_node_id);
-          }
-          else if(x1 != x2 & y1 != y2){
+          if(x1 != x2 & y1 != y2){
             moveDroneNode(node_id, x2, y2);
           }
         }
@@ -170,7 +177,9 @@ function drawCanvasDrone(){
   ctx_drone.clearRect(0, 0, 600, 400);
   drone_nodes_filtered = getValuesWithMapId(drone_nodes,currentMapId);
   drone_links_filtered = getValuesWithMapId(drone_links,currentMapId);
-  drawDroneLinks();
+  if(drone_show_links){
+    drawDroneLinks();
+  }
   drawDroneNodes();
 }
 
@@ -206,17 +215,6 @@ function drawDroneLink(link){
   ctx_drone.beginPath();
   ctx_drone.moveTo(x1, y1);
   ctx_drone.lineTo(x2, y2);
-  ctx_drone.stroke();
-
-  //Draw link centers
-  var centerx = (x1+x2)/2;
-  var centery = (y1+y2)/2;
-  ctx_drone.moveTo(centerx, centery);
-  ctx_drone.arc(centerx,centery,drone_link_center_size,0,2*Math.PI, false)
-
-  //Add link centers to array
-  var drone_link_center = {"id":link.id, "x":centerx, "y":centery}
-  drone_link_centers.push(drone_link_center)
 
   ctx_drone.stroke();
 }

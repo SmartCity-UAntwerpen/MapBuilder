@@ -1,16 +1,12 @@
 var maps = [{"id":0,"type":"TOP"},{"id":1,"type":"CAR","offSetX":100,"offSetY":0},{"id":2,"type":"DRONE","offSetX":25,"offSetY":25},{"id":3,"type":"ROBOT","offSetX":0,"offSetY":0}]
 
-var top_nodes = [{"id":1,"mapId":2,"edgeId":3,"x":204,"y":90},{"id":0,"mapId":3,"edgeId":15,"x":20,"y":20},{"id":2,"mapId":3,"edgeId":16,"x":20,"y":20},{"id":3,"mapId":3,"edgeId":17,"x":20,"y":20}]
+var top_nodes = []
+var top_links = []
+var car_nodes = []
 
-var top_links = [{"id":0,"start":2,"stop":0,"weight":1},{"id":1,"start":0,"stop":3,"weight":0},{"id":2,"start":3,"stop":1,"weight":1},{"id":3,"start":1,"stop":2,"weight":1}]
-
-var car_nodes = [{"id":0,"x":136,"y":72,"car_x":4.366666666666666,"car_y":2.2333333333333334,"car_z":0,"car_w":0,"isTransit":false,"mapId":1},{"id":2,"x":154,"y":184,"car_x":4.966666666666667,"car_y":5.966666666666667,"car_z":0,"car_w":0,"isTransit":false,"mapId":1},{"id":3,"x":132,"y":219,"car_x":4.233333333333333,"car_y":7.133333333333334,"car_z":0,"car_w":0,"isTransit":false,"mapId":1},{"id":4,"x":"108.00","y":"252.00","car_x":3.433333333333333,"car_y":8.233333333333333,"car_z":0.96,"car_w":0.5,"isTransit":false,"mapId":1,"mapname":"U"}]
-
-var car_links = [{"id":1,"start":2,"stop":0,"mapId":1},{"id":3,"start":3,"stop":0,"mapId":1},{"id":5,"start":3,"stop":2,"mapId":1},{"id":6,"start":4,"stop":0,"mapId":1},{"id":8,"start":4,"stop":2,"mapId":1},{"id":9,"start":4,"stop":3,"mapId":1}]
-
-var drone_nodes = [{"id":0,"x":228.25,"y":68,"drone_x":0,"drone_y":0,"drone_z":0,"isTransit":false,"mapId":2},{"id":1,"x":182.25,"y":175,"drone_x":0,"drone_y":0,"drone_z":0,"isTransit":false,"mapId":2},{"id":2,"x":299.25,"y":156,"drone_x":0,"drone_y":0,"drone_z":0,"isTransit":false,"mapId":2},{"id":3,"x":280.25,"y":266,"drone_x":50,"drone_y":23,"drone_z":8,"isTransit":true,"mapId":2}]
-
-var drone_links = [{"id":0,"start":0,"stop":1,"weight":1,"mapId":2},{"id":1,"start":0,"stop":2,"weight":1,"mapId":2},{"id":2,"start":2,"stop":1,"weight":1,"mapId":2},{"id":4,"start":3,"stop":1,"weight":1,"mapId":2},{"id":5,"start":3,"stop":0,"weight":1,"mapId":2},{"id":3,"start":2,"stop":3,"weight":1,"mapId":2}]
+var car_links = []
+var drone_nodes = []
+var drone_links = []
 
 var robot_nodes = [{"id":0,"tileId":0,"x":134.25,"y":79,"mapId":3,"isTransit":false},{"id":1,"tileId":0,"x":154.25,"y":79,"mapId":3,"isTransit":false},{"id":2,"tileId":0,"x":174.25,"y":99,"mapId":3,"isTransit":false},{"id":3,"tileId":0,"x":174.25,"y":119,"mapId":3,"isTransit":false},{"id":4,"tileId":0,"x":154.25,"y":139,"mapId":3,"isTransit":false},{"id":5,"tileId":0,"x":134.25,"y":139,"mapId":3,"isTransit":false},{"id":6,"tileId":0,"x":114.25,"y":119,"mapId":3,"isTransit":false},{"id":7,"tileId":0,"x":114.25,"y":99,"mapId":3,"isTransit":false},{"id":8,"tileId":1,"x":224.25,"y":189,"mapId":3,"isTransit":false},{"id":9,"tileId":2,"x":294.25,"y":79,"mapId":3,"isTransit":false},{"id":10,"tileId":2,"x":314.25,"y":79,"mapId":3,"isTransit":false},{"id":11,"tileId":2,"x":314.25,"y":139,"mapId":3,"isTransit":false},{"id":12,"tileId":2,"x":294.25,"y":139,"mapId":3,"isTransit":false},{"id":13,"tileId":2,"x":274.25,"y":119,"mapId":3,"isTransit":false},{"id":14,"tileId":2,"x":274.25,"y":99,"mapId":3,"isTransit":false},{"id":15,"tileId":3,"x":304.25,"y":29,"mapId":3,"isTransit":true},{"id":16,"tileId":4,"x":144.25,"y":29,"mapId":3,"isTransit":true},{"id":17,"tileId":5,"x":64.25,"y":109,"mapId":3,"isTransit":true}]
 
