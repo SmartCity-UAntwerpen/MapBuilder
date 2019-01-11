@@ -216,20 +216,14 @@ function converDataToJson(){
         }
         else{
           $.each(robot_nodes,function(k,v){
-            //console.log(id, v)
             if(id == v.id){
-              console.log(v, robot_tiles)
               $.each(robot_tiles, function(k1,v1){
-                //console.log(robot_tiles, robot_nodes)
-                console.log(v.tileId, v1.id)
-                if(v1.id == v.tileId){
-                  type = v1.tiletype
+                if(v.tileId == v1.tileId){
+                  type = v1.type
                 }
               })
-              console.log(robot_nodes)
               x = Math.floor(v.x);
               y = Math.floor(v.y);
-              console.log(v.id,type,x,y)
             }
           })
         }

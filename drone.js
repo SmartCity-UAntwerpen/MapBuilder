@@ -1,4 +1,5 @@
 /* Variables */
+var drone_map_offset = 10;
 var drone_node_size = 20;
 var drone_link_center_size = 4;
 var drone_map_scale = 20;
@@ -15,8 +16,8 @@ function addDroneNode(x,y){
   var node = {"id":id,
               "x":x,
               "y":y,
-              "drone_x":Number(x/drone_map_scale).toFixed(2),
-              "drone_y":Number(y/drone_map_scale).toFixed(2),
+              "drone_x":Number((x-drone_map_offset)/drone_map_scale).toFixed(2),
+              "drone_y":Number((y-drone_map_offset)/drone_map_scale).toFixed(2),
               "drone_z":0,
               "isTransit":false,
               "mapId":currentMapId};
@@ -54,8 +55,8 @@ function editDroneNode(id,x,y,z,isTransit){
       x = Number(x).toFixed(2)
       y = Number(y).toFixed(2)
 
-      values.x = x*drone_map_scale;
-      values.y = y*drone_map_scale;
+      values.x = (x*drone_map_scale) + drone_map_offset;
+      values.y = (y*drone_map_scale) + drone_map_offset;
       values.drone_x = x;
       values.drone_y = y;
       values.drone_z = z;

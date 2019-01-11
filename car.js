@@ -1,5 +1,5 @@
 /* Variables */
-var car_map_offset = 5; //to avoid negative x,y
+var car_map_offset = 10; //to avoid negative x,y
 var car_map_scale = 20;
 var car_node_size = 20;
 var car_show_links = true;
