@@ -123,59 +123,82 @@ function converDataToJson(){
 
     if(values.type == "ROBOT"){
 
-      var used_links = [];
-      $.each(robot_links, function(k,v){
-        if(v.startTile != v.stopTile){
-          used_links.push(v)
-        }
-      })
-      used_links = used_links.sort((a,b) => (a.startTile > b.startTile) ? 1 : ((b.startTile > a.startTile) ? -1 : 0));
+      var work_with_tileId = false; //otherwise it takes point/node ids
 
+      var final = [];
 
+      if(work_with_tileId){
+        /* This is future work where we give tile ids
+        instead of point ids, but robot doesnt have this implemented */
+        var used_links = [];
+        $.each(robot_links, function(k,v){
+          if(v.startTile != v.stopTile){
+            used_links.push(v)
+          }
+        })
+        used_links = used_links.sort((a,b) => (a.startTile > b.startTile) ? 1 : ((b.startTile > a.startTile) ? -1 : 0));
 
-      var different_tiles = []
-      $.each(used_links, function(k,v){
-        different_tiles.push(v.startTile)
-      })
-      different_tiles = different_tiles.filter(onlyUnique);
-
-
-      var neighbours_arr = []
-      for (var i = 0; i < different_tiles.length; i++) {
+        var different_tiles = []
         $.each(used_links, function(k,v){
-          if(v.startTile == different_tiles[i]){
-            neighbours_arr.push([different_tiles[i], v.stopTile])
-          }
-          if(v.stopTile == different_tiles[i]){
-            neighbours_arr.push([different_tiles[i], v.startTile])
-          }
+          different_tiles.push(v.startTile)
         })
-      }
+        different_tiles = different_tiles.filter(onlyUnique);
 
 
-
-      var final = []
-      for (var i = 0; i < neighbours_arr.length; i++) {
-        var allowed = true;
-        $.each(final, function(k,v){
-          if(v[0] == neighbours_arr[i][0]){
-            allowed = false; //Already in it
-            if(!v[1].includes(neighbours_arr[i][1])){
-              v[1].push(neighbours_arr[i][1])
+        var neighbours_arr = []
+        for (var i = 0; i < different_tiles.length; i++) {
+          $.each(used_links, function(k,v){
+            if(v.startTile == different_tiles[i]){
+              neighbours_arr.push([different_tiles[i], v.stopTile])
             }
+            if(v.stopTile == different_tiles[i]){
+              neighbours_arr.push([different_tiles[i], v.startTile])
+            }
+          })
+        }
+
+        for (var i = 0; i < neighbours_arr.length; i++) {
+          var allowed = true;
+          $.each(final, function(k,v){
+            if(v[0] == neighbours_arr[i][0]){
+              allowed = false; //Already in it
+              if(!v[1].includes(neighbours_arr[i][1])){
+                v[1].push(neighbours_arr[i][1])
+              }
+            }
+          })
+          if(allowed){
+            final.push([neighbours_arr[i][0], [neighbours_arr[i][1]]])
           }
-        })
-        if(allowed){
-          final.push([neighbours_arr[i][0], [neighbours_arr[i][1]]])
         }
       }
+      else{
+        /* Currently working with point/node - ids */
+        var final1 = [];
+        $.each(robot_tiles, function(key,values){
+          if(values.nodes == 1){
+            $.each(robot_nodes, function(k,v){
+              if(v.tileId==values.tileId){
+                final1.push(v.id)
+              }
+            })
+          }
+        })
+
+        $.each(final1, function(key,values){
+          final.push([values, final1])
+        })
+      }
+
 
       neighbours = []
       pointList = []
 
       $.each(final,function(key,values){
         $.each(values[1], function(k,v){
-          neighbours.push({"neighbour":v+1}) //+1, same as in sql.js
+          if(values[0] != v){
+            neighbours.push({"neighbour":v})
+          }
         })
         var id = values[0]
         var type = "";
@@ -190,7 +213,7 @@ function converDataToJson(){
         if(type == "end"){type = "ENDPOINT"};
         if(type == "crossing"){type = "INTERSECTION"};
         if(type == "tlight"){type = "LIGHT"}
-        pointList.push({"id":(id+1), "x":x,"y":y,"type":type,"neighbours":neighbours})
+        pointList.push({"id":id, "x":x,"y":y,"type":type,"neighbours":neighbours})
         neighbours = []
       })
     }

@@ -6,8 +6,8 @@ var car_databasename = "car";
 var car_tablename_point = "points";
 
 var drone_databasename = "drone"
-var drone_tablename_point = "point";
-var drone_tablename_link = "link";
+var drone_tablename_point = "points";
+//var drone_tablename_link = "link";
 
 var robot_databasename = "robotDB_new";
 var robot_tablename_tile = "tiles";
@@ -72,11 +72,11 @@ function getSQL_drone(){
   });
 
   //Link table
-  sql += "\nDROP TABLE " + drone_tablename_link + ";";
-  sql += "\nCREATE TABLE " + drone_tablename_link + "(linkid int, begin int, end int, weight int);";
-  $.each(drone_links, function(key,values){
-    sql += "\nINSERT INTO " + drone_tablename_link + " VALUES(" + values.id + "," + values.start + "," + values.stop + "," + values.weight + ");"
-  });
+  // sql += "\nDROP TABLE " + drone_tablename_link + ";";
+  // sql += "\nCREATE TABLE " + drone_tablename_link + "(linkid int, begin int, end int, weight int);";
+  // $.each(drone_links, function(key,values){
+  //   sql += "\nINSERT INTO " + drone_tablename_link + " VALUES(" + values.id + "," + values.start + "," + values.stop + "," + values.weight + ");"
+  // });
   return sql
 }
 

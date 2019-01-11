@@ -10,8 +10,10 @@ var robot_show_weights = false;
 
 /* Global variables used in robot.js */
 var ctx_robot_frontend, ctx_robot_backend;
-var robot_nodes_filtered = robot_links_filtered = [];
-var robot_tiles_filtered = robot_link_centers = [];
+var robot_nodes_filtered = [];
+var robot_links_filtered = [];
+var robot_tiles_filtered = [];
+var robot_link_centers = [];
 
 
 function drawCanvasRobot(){
@@ -308,7 +310,7 @@ function createRobotNodes(){
   makeTileIds();
   robot_nodes = [];
 
-  cleanRobotNodesInTop();
+  cleanRobotNodesInTop(); //make it save x,y
 
 
   $.each(robot_tiles, function(key,values){

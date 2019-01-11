@@ -1,6 +1,6 @@
 /* Variables */
 var car_map_offset = 5; //to avoid negative x,y
-var car_map_scale = 30;
+var car_map_scale = 20;
 var car_node_size = 20;
 var car_show_links = true;
 
@@ -33,6 +33,7 @@ function addCarNode(x,y){
 }
 
 function deleteCarNode(id){
+  deleteTopNode(id, currentMapId);
 
   //delete the node from car_nodes
   deleteIdFromData(id, car_nodes);
