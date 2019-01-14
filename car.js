@@ -48,6 +48,7 @@ function deleteCarNode(id){
   for (var i = 0; i < toDeleteLinkIds.length; i++) {
     deleteIdFromData(toDeleteLinkIds[i], car_links);
   }
+  deleteTopNode(id, currentMapId);
   refresh();
 }
 

@@ -29,6 +29,7 @@ function addDroneNode(x,y){
                 "mapId":currentMapId}
     drone_links.push(link);
   })
+  deleteTopNode(id, currentMapId)
   refresh();
 }
 

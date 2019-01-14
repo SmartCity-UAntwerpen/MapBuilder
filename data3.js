@@ -1,4 +1,4 @@
-var maps = [{"id":0,"type":"TOP"},{"id":1,"type":"CAR","offSetX":"60","offSetY":"0"},{"id":2,"type":"DRONE","offSetX":"0","offSetY":"0"},{"id":3,"type":"ROBOT","offSetX":"0","offSetY":"60"},{"id":4,"type":"ROBOT","offSetX":0,"offSetY":0}]
+var maps = [{"id":0,"type":"TOP"},{"id":1,"type":"CAR","offSetX":"60","offSetY":"0"},{"id":2,"type":"DRONE","offSetX":"0","offSetY":"0"},{"id":3,"type":"ROBOT","offSetX":"0","offSetY":"60"}]
 
 var top_nodes = [{"id":0,"mapId":1,"edgeId":1,"x":147.25,"y":138},{"id":1,"mapId":1,"edgeId":2,"x":111.25,"y":71},{"id":2,"mapId":1,"edgeId":0,"x":79.25,"y":139},{"id":4,"mapId":2,"edgeId":1,"x":419.25,"y":84},{"id":5,"mapId":2,"edgeId":2,"x":455.25,"y":146},{"id":3,"mapId":2,"edgeId":3,"x":390.25,"y":146},{"id":6,"mapId":3,"edgeId":8,"x":281.25,"y":217},{"id":7,"mapId":3,"edgeId":16,"x":241.25,"y":260},{"id":8,"mapId":3,"edgeId":17,"x":326.25,"y":260}]
 
