@@ -84,6 +84,24 @@ function getSQL_robot(){
 
   var sql = "USE " + robot_databasename + ";";
 
+  sql += "SET foreign_key_checks=0;";
+  sql += "CREATE TABLE " + robot_databasename + "." + robot_tablename_link +
+      "(id bigint not null, angle double precision not null, length integer not null, " +
+      "weight integer not null, end bigint, link_lock_id bigint, start bigint, " +
+      "primary key (id)) ENGINE=InnoDB;";
+  sql += "CREATE TABLE " + robot_databasename + "." + robot_tablename_link_lock +
+      "(id bigint not null, status bit, locked_by bigint, " +
+      "primary key(id)) ENGINE=InnoDB;";
+  sql += "CREATE TABLE " + robot_databasename + "." + robot_tablename_point +
+      "(id bigint not null, is_locked bit, rfid varchar(255), type varchar(255), " +
+      "locked_by bigint, primary key(id)) ENGINE=InnoDB;";
+  sql += "CREATE TABLE " + robot_databasename + "." + robot_tablename_tile +
+      "(id bigint not null, tile_id bigint, primary key (id)) ENGINE=InnoDB;";
+  sql += "TRUNCATE " + robot_databasename + "." + robot_tablename_link;
+  sql += "TRUNCATE " + robot_databasename + "." + robot_tablename_link_lock;
+  sql += "TRUNCATE " + robot_databasename + "." + robot_tablename_point;
+  sql += "TRUNCATE " + robot_databasename + "." + robot_tablename_tile;
+  sql += "SET foreign_key_checks=1;";
 
   //tiles
   var tiles = [];
@@ -123,7 +141,7 @@ function getSQL_robot(){
     var allowed = true;
     if(tile_combinations.length > 0){
       $.each(tile_combinations, function(k,v){
-        if((v[0] == combination[0] & v[1] == combination[1])){
+        if((v[0] == combination[0] && v[1] == combination[1])){
           allowed = false;
         }
       })
@@ -136,7 +154,7 @@ function getSQL_robot(){
     var link_lock_id = 1;
 
     $.each(tile_combinations, function(k,v){
-      if((v[0] == combination[0] & v[1] == combination[1])){
+      if((v[0] == combination[0] && v[1] == combination[1])){
         link_lock_id = k+1;
       }
     })

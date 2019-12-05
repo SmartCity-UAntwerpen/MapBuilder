@@ -117,7 +117,7 @@ function addRobotLink(start, stop){
                     "angle":angle,
                     "weight":weight,
                     "length":length,
-                    "mapId":currentMapId}
+                    "mapId":currentMapId};
   robot_links.push(robot_link);
   refresh();
 }
@@ -160,12 +160,12 @@ function createTile(x,y){
                     "isTile": false,
                     "rfid":"",
                     "tiletype":"",
-                    "nodes":0}
+                    "nodes":0};
 
   if(robot_tiles_filtered.length != 0){  //get closest tile, put it next to it
 
     var d; //smallest distance
-    var closest_x, closest_y; //closest point
+    var closest_x = 0, closest_y = 0; //closest point
 
     //take shortest_distance
     $.each(robot_tiles_filtered, function(key,values){
@@ -175,7 +175,7 @@ function createTile(x,y){
         closest_x = values.x;
         closest_y = values.y;
       }
-    })
+    });
 
     var h = x - closest_x;
     var v = y - closest_y;
@@ -327,7 +327,7 @@ function createRobotNodes(){
       positions = [values.x, values.y]
     }
 
-    if(values.nodes == 6){
+    if(values.nodes === 6){
       switch (values.canvastype) {
         case 4:
           positions = positions.slice(0,6);

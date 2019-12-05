@@ -30,7 +30,7 @@ $(document).ready( function () {
 
 
 function main(){
-  $("#mapHeader").addClass("highlight")
+  $("#mapHeader").addClass("highlight");
   addMapButtons();        //Add html buttons to switch between maps
   createCanvasEvents();
   loadMap();              //default show & draw first map
@@ -66,7 +66,7 @@ function addMap(type){
 function loadMap(id, type){
 
   //Default -> first map
-  if(id == null & type == null){
+  if(id == null && type == null){
     id = maps[0].id;
     type = maps[0].type;
   }
@@ -76,8 +76,8 @@ function loadMap(id, type){
   currentMapType = type;
 
   //Highlight correct button
-  $(".mapselectbutton").removeClass("highlight")
-  $("#mapButton"+id).addClass("highlight")
+  $(".mapselectbutton").removeClass("highlight");
+  $("#mapButton"+id).addClass("highlight");
 
   //Show correct html
   $("#top, #car, #drone, #robot").hide();
@@ -88,7 +88,7 @@ function loadMap(id, type){
       $("#"+currentMapType.toLowerCase()+"OffSetX").val(values.offSetX)
       $("#"+currentMapType.toLowerCase()+"OffSetY").val(values.offSetY)
     }
-  })
+  });
   refresh();
 }
 
@@ -109,9 +109,9 @@ function displayData(){
                 "var robot_links = " + JSON.stringify(robot_links) + "\n\n" +
                 "var robot_tiles = " + JSON.stringify(robot_tiles) + "\n\n";
   $("#datajs").val(datajs);
-  $("#json").val(JSON.stringify(converDataToJson()))
+  $("#json").val(JSON.stringify(convertDataToJson()))
 }
-function converDataToJson(){
+function convertDataToJson(){
 
   var maplist = []
   var pointList = []

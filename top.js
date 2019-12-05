@@ -209,7 +209,7 @@ function cleanRobotNodesInTop(){
     if(values.type == "ROBOT"){
       robot_map_ids.push(values.id);
     }
-  })
+  });
 
   var toDeleteTopNodes = []
   $.each(robot_map_ids, function(key,values){
@@ -218,7 +218,8 @@ function cleanRobotNodesInTop(){
         toDeleteTopNodes.push(v.id);
       }
     })
-  })
+  });
+
   $.each(toDeleteTopNodes,function(key,values){
     deleteIdFromData(values, top_nodes)
   })
